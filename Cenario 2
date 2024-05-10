@@ -1,0 +1,21 @@
+cenario-2:class Reserva:
+    def init(self, nome_cliente, num_pessoas, data, hora):
+        self.nome_cliente = nome_cliente
+        self.num_pessoas = num_pessoas
+        self.data = data
+        self.hora = hora
+
+    def str(self):
+        return f"Reserva para {self.num_pessoas} pessoa(s) em nome de {self.nome_cliente} para o dia {self.data} às {self.hora}"
+
+
+class SistemaReservas:
+    def init(self):
+        self.reservas = []
+
+    def fazer_reserva(self, reserva):
+        self.reservas.append(reserva)
+
+    def listar_reservas(self):
+        for reserva in self.reservas:
+            print(reserva)
