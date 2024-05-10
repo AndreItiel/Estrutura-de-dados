@@ -1,7 +1,3 @@
-//Listar todos os eventos cadastrados:
-
-print("\nEventos cadastrados:")
-sistema.listar_eventos()
 Cenario-1:class Evento:
     def init(self, nome, descricao, data, hora_inicio):
         self.nome = nome
