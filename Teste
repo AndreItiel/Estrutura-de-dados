@@ -1,0 +1,101 @@
+alunos = []
+usuario_autenticado = False
+usuario_atual = None  # Variável para armazenar o usuário logado
+
+# Função para registrar um novo aluno
+def cadastrar():
+    global usuario_autenticado, usuario_atual
+    nome = input("Digite seu nome: ")
+    email = input("Digite seu email: ")
+    senha = input("Digite sua senha: ")
+    escola = input("Digite sua escola: ")
+    turma = input("Digite sua turma: ")
+    serie = input("Digite sua série: ")
+    perfil = {
+        "nome": nome,
+        "email": email,
+        "senha": senha,
+        "escola": escola,
+        "turma": turma,
+        "serie": serie,
+        "notas": [],
+        "frequencias": [],
+        "tarefas": []
+    }
+    alunos.append(perfil)
+    usuario_autenticado = True
+    usuario_atual = perfil
+    print("Cadastro realizado com sucesso!")
+
+# Função para fazer login
+def login():
+    global usuario_autenticado, usuario_atual
+    email = input("Digite seu email: ")
+    senha = input("Digite sua senha: ")
+    for aluno in alunos:
+        if aluno["email"] == email and aluno["senha"] == senha:
+            usuario_autenticado = True
+            usuario_atual = aluno
+            print("Login realizado com sucesso!")
+            return
+    print("Email ou senha incorretos.")
+
+# Função para salvar os dados em um arquivo
+def salvar_dados():
+    with open("dados_alunos.txt", "w") as arquivo:
+        for aluno in alunos:
+            arquivo.write(f"{aluno}\n")
+    print("Dados salvos com sucesso!")
+
+# Função principal
+def principal():
+    while True:
+        if not usuario_autenticado:
+            escolha = input("Você precisa estar autenticado para acessar. Deseja fazer login (L) ou cadastrar (C)? ")
+            if escolha.upper() == "L":
+                login()
+            elif escolha.upper() == "C":
+                cadastrar()
+            else:
+                print("Opção inválida. Por favor, tente novamente.")
+        else:
+            print("1. Perfil")
+            print("2. Notas")
+            print("3. Frequências")
+            print("4. Tarefas")
+            print("5. Calendário")
+            print("6. Salvar Dados")
+            print("7. Sair")
+
+            opcao = input("Escolha uma opção: ")
+
+            if opcao == "1":
+                # Perfil
+                print(f"Nome: {usuario_atual['nome']}")
+                print(f"Email: {usuario_atual['email']}")
+                print(f"Escola: {usuario_atual['escola']}")
+                print(f"Turma: {usuario_atual['turma']}")
+                print(f"Série: {usuario_atual['serie']}")
+            elif opcao == "2":
+                # Notas
+                print(f"Notas: {usuario_atual['notas']}")
+            elif opcao == "3":
+                # Frequências
+                print(f"Frequências: {usuario_atual['frequencias']}")
+            elif opcao == "4":
+                # Tarefas
+                print(f"Tarefas: {usuario_atual['tarefas']}")
+            elif opcao == "5":
+                # Calendário
+                print("Funcionalidade do calendário ainda não implementada.")
+            elif opcao == "6":
+                # Salvar Dados
+                salvar_dados()
+            elif opcao == "7":
+                print("Até logo!")
+                break
+            else:
+                print("Opção inválida. Por favor, tente novamente.")
+
+if __name__ == "__main__":
+    principal()
